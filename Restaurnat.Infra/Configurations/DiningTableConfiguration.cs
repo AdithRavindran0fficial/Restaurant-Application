@@ -15,10 +15,23 @@ namespace Restaurant.Infra.Configurations
             builder.Property(dt => dt.TableNumber)
                 .IsRequired();
 
-            builder.Property(dt => dt.QrCode)
+            // ✅ QrToken - required, unique, max length
+            builder.Property(dt => dt.QrToken)
+                .IsRequired()
+                .HasMaxLength(64);
+
+            // ✅ QrUrl - the frontend URL encoded in QR image
+            builder.Property(dt => dt.QrUrl)
+                .HasMaxLength(500);
+
+            // ✅ QrCodeImageUrl - the stored QR image file URL
+            builder.Property(dt => dt.QrCodeImageUrl)
                 .HasMaxLength(500);
 
             builder.Property(dt => dt.Capacity);
+
+            builder.Property(dt => dt.IsOccupied)
+                .HasDefaultValue(false);
 
             builder.Property(dt => dt.IsActive)
                 .HasDefaultValue(true);
@@ -26,7 +39,6 @@ namespace Restaurant.Infra.Configurations
             builder.Property(dt => dt.IsDeleted)
                 .HasDefaultValue(false);
 
-            // ✅ Fix 1: GETUTCDATE() → NOW()
             builder.Property(dt => dt.CreatedAt)
                 .HasDefaultValueSql("NOW()");
 
@@ -37,10 +49,9 @@ namespace Restaurant.Infra.Configurations
             builder.HasIndex(dt => new { dt.TenantId, dt.TableNumber })
                 .IsUnique();
 
-            // ✅ Fix 2: [QrCode] → "QrCode"
-            builder.HasIndex(dt => dt.QrCode)
-                .IsUnique()
-                .HasFilter("\"QrCode\" IS NOT NULL");
+            // ✅ QrToken must be unique across entire table
+            builder.HasIndex(dt => dt.QrToken)
+                .IsUnique();
 
             // 🔗 Relationships
             builder.HasOne(dt => dt.Tenant)
