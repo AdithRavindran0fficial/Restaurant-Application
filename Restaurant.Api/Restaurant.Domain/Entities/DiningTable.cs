@@ -12,7 +12,10 @@ namespace Restaurant.Domain.Entities
 
         public int TableNumber { get; set; }
 
-        public string? QrCode { get; set; }
+        public string QrToken { get; set; } = string.Empty;
+        public string? QrUrl { get; set; }
+        public string? QrCodeImageUrl { get; set; }
+        public bool IsOccupied { get; set; } = false;
 
         public int? Capacity { get; set; }
 

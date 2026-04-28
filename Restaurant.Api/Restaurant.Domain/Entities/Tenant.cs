@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Reflection.Emit;
-using System.Text;
 
 namespace Restaurant.Domain.Entities
 {
@@ -36,16 +32,16 @@ namespace Restaurant.Domain.Entities
         // 🔗 Navigation Properties
         public Country? Country { get; set; }
 
-        public ICollection<Staff> Staffs { get; set; }
+        public ICollection<Staff> Staffs { get; set; } = new List<Staff>();
 
-        public ICollection<Category> Categories { get; set; }
+        public ICollection<Category> Categories { get; set; } = new List<Category>();
 
-        public ICollection<MenuItem> MenuItems { get; set; }
+        public ICollection<MenuItem> MenuItems { get; set; } = new List<MenuItem>();
 
-        public ICollection<Order> Orders { get; set; }
+        public ICollection<Order> Orders { get; set; } = new List<Order>();
 
-        public ICollection<DiningTable> Tables { get; set; }
+        public ICollection<DiningTable> Tables { get; set; } = new List<DiningTable>();
 
-        public ICollection<TenantSubscription> Subscriptions { get; set; }
+        public ICollection<TenantSubscription> Subscriptions { get; set; } = new List<TenantSubscription>();
     }
 }

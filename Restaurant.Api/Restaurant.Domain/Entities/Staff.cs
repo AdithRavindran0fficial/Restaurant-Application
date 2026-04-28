@@ -18,6 +18,7 @@ namespace Restaurant.Domain.Entities
 
         public string? LastName { get; set; }
 
+        public int FailedLoginAttempts { get; set; } = 0;
         public int RoleId { get; set; }
 
         public string? ProfileImg { get; set; }
