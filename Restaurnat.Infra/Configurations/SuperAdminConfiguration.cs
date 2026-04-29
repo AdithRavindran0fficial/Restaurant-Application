@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.Extensions.Configuration;
 using Restaurant.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Restaurnat.Infra.Configurations
@@ -40,6 +42,30 @@ namespace Restaurnat.Infra.Configurations
             builder.Property(x => x.CreatedAt)
                 .IsRequired()
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            // Seed SuperAdmin data
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
+
+            var email = configuration["SuperAdmin:Email"] ?? "superadmin@restaurant.com";
+            var password = configuration["SuperAdmin:Password"] ?? "SuperAdmin@123";
+            var firstName = configuration["SuperAdmin:FirstName"] ?? "Super Admin";
+
+            // Hash the password using BCrypt
+            var passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
+
+            builder.HasData(new SuperAdmin
+            {
+                Id = 1,
+                Email = email,
+                PasswordHash = "$2a$12$GFGErZLAYIk/sKRLu0n3Heu9/pyq3HwvM4GIp8ucBlnnB9oXg4yam",
+                FirstName = firstName,
+                IsActive = true,
+                CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                LastLoginAt = null
+            });
         }
     }
 }
