@@ -1,4 +1,10 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="RESTAURANT_SAAS.md" />
+  </Folder>
+  <Folder Name="/Solution Items/.github/">
+    <File Path="copilot-instructions.md" />
+  </Folder>
   <Project Path="../Restaurnat.Infra/Restaurnat.Infra.csproj" />
   <Project Path="Restaurant.Api/Restaurant.Api.csproj" />
   <Project Path="Restaurant.Application/Restaurant.Application.csproj" />
