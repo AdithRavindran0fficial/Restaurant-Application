@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Restaurant.Application.Common;
 using Restaurant.Application.SuperAdmin.DTOs;
 using Restaurant.Application.SuperAdmin.Interfaces.GetAllTenants;
+using Restaurant.Application.SuperAdmin.Interfaces.SoftDeleteTenant;
 
 namespace Restaurant.Api.Controllers.SuperAdmin.Tenants
 {
@@ -12,10 +13,14 @@ namespace Restaurant.Api.Controllers.SuperAdmin.Tenants
     public class TenantController : ControllerBase
     {
         private readonly ITenantService _tenantService;
+        private readonly ISoftDeleteTenantService _softDeleteTenantService;
 
-        public TenantController(ITenantService tenantService)
+        public TenantController(
+            ITenantService tenantService, 
+            ISoftDeleteTenantService softDeleteTenantService)
         {
             _tenantService = tenantService;
+            _softDeleteTenantService = softDeleteTenantService;
         }
 
         [HttpGet]
@@ -30,6 +35,14 @@ namespace Restaurant.Api.Controllers.SuperAdmin.Tenants
         public async Task<ActionResult<ApiResponse<TenantDto>>> GetTenantById(int id)
         {
             var result = await _tenantService.GetTenantByIdAsync(id);
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ApiResponse<bool>>> SoftDeleteTenant(int id)
+        {
+            var result = await _softDeleteTenantService.SoftDeleteTenantAsync(id);
 
             return StatusCode(result.StatusCode, result);
         }

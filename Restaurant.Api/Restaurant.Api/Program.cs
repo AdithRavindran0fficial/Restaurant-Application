@@ -7,10 +7,13 @@ using Restaurant.Application.SuperAdmin.Interfaces;
 using Restaurant.Application.SuperAdmin.Services;
 using Restaurant.Application.SuperAdmin.Interfaces.GetAllTenants;
 using Restaurant.Application.SuperAdmin.Services.GetAllTenants;
+using Restaurant.Application.SuperAdmin.Interfaces.SoftDeleteTenant;
+using Restaurant.Application.SuperAdmin.Services.SoftDeleteTenant;
 using Restaurnat.Infra.Authentication;
 using Restaurnat.Infra.Context;
 using Restaurnat.Infra.SuperAdmin;
 using Restaurnat.Infra.SuperAdmin.GetAllTenants;
+using Restaurnat.Infra.SuperAdmin.SoftDeleteTenant;
 using Scalar.AspNetCore;
 using System.Text;
 
