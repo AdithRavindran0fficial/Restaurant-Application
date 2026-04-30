@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Restaurnat.Infra.Context;
@@ -11,9 +12,11 @@ using Restaurnat.Infra.Context;
 namespace Restaurnat.Infra.Migrations
 {
     [DbContext(typeof(MasterDbContext))]
-    partial class MasterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260427070821_Createdsuperadminconfiguration")]
+    partial class Createdsuperadminconfiguration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -756,17 +759,6 @@ namespace Restaurnat.Infra.Migrations
                         .IsUnique();
 
                     b.ToTable("SuperAdmins", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Email = "superadmin@restaurant.com",
-                            FirstName = "Super Admin",
-                            IsActive = true,
-                            PasswordHash = "$2a$12$GFGErZLAYIk/sKRLu0n3Heu9/pyq3HwvM4GIp8ucBlnnB9oXg4yam"
-                        });
                 });
 
             modelBuilder.Entity("Restaurant.Domain.Entities.Tenant", b =>
