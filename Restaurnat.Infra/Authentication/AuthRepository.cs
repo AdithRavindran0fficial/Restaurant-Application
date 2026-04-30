@@ -14,7 +14,7 @@ public class AuthRepository : IAuthRepository
         _context = context;
     }
 
-    public async Task<SuperAdmin?> GetSuperAdminByEmailAsync(string email)
+    public async Task<Restaurant.Domain.Entities.SuperAdmin?> GetSuperAdminByEmailAsync(string email)
     {
         return await _context.SuperAdmins
             .FirstOrDefaultAsync(sa => sa.Email == email && sa.IsActive);

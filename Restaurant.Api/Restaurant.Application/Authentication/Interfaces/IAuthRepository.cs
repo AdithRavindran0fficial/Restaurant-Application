@@ -4,7 +4,7 @@ namespace Restaurant.Application.Authentication.Interfaces;
 
 public interface IAuthRepository
 {
-    Task<SuperAdmin?> GetSuperAdminByEmailAsync(string email);
+    Task<Restaurant.Domain.Entities.SuperAdmin?> GetSuperAdminByEmailAsync(string email);
     Task<Staff?> GetStaffByEmailAsync(string email);
     Task UpdateStaffAsync(Staff staff);
     Task<Role?> GetRoleByIdAsync(int roleId);
