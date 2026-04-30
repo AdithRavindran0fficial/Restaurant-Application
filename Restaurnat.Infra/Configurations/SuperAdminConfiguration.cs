@@ -9,9 +9,9 @@ using System.Text;
 
 namespace Restaurnat.Infra.Configurations
 {
-    public class SuperAdminConfiguration : IEntityTypeConfiguration<SuperAdmin>
+    public class SuperAdminConfiguration : IEntityTypeConfiguration<Restaurant.Domain.Entities.SuperAdmin>
     {
-        public void Configure(EntityTypeBuilder<SuperAdmin> builder)
+        public void Configure(EntityTypeBuilder<Restaurant.Domain.Entities.SuperAdmin> builder)
         {
             builder.ToTable("SuperAdmins");
 
@@ -56,7 +56,7 @@ namespace Restaurnat.Infra.Configurations
             // Hash the password using BCrypt
             var passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
 
-            builder.HasData(new SuperAdmin
+            builder.HasData(new Restaurant.Domain.Entities.SuperAdmin
             {
                 Id = 1,
                 Email = email,
