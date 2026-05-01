@@ -9,11 +9,17 @@ using Restaurant.Application.SuperAdmin.Interfaces.GetAllTenants;
 using Restaurant.Application.SuperAdmin.Services.GetAllTenants;
 using Restaurant.Application.SuperAdmin.Interfaces.SoftDeleteTenant;
 using Restaurant.Application.SuperAdmin.Services.SoftDeleteTenant;
+using Restaurant.Application.SuperAdmin.Interfaces.ActivateTenant;
+using Restaurant.Application.SuperAdmin.Services.ActivateTenant;
+using Restaurant.Application.SuperAdmin.Interfaces.DeactivateTenant;
+using Restaurant.Application.SuperAdmin.Services.DeactivateTenant;
 using Restaurnat.Infra.Authentication;
 using Restaurnat.Infra.Context;
 using Restaurnat.Infra.SuperAdmin;
 using Restaurnat.Infra.SuperAdmin.GetAllTenants;
 using Restaurnat.Infra.SuperAdmin.SoftDeleteTenant;
+using Restaurnat.Infra.SuperAdmin.ActivateTenant;
+using Restaurnat.Infra.SuperAdmin.DeactivateTenant;
 using Scalar.AspNetCore;
 using System.Text;
 
@@ -44,6 +50,9 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<ISuperAdminService, SuperAdminService>();
             builder.Services.AddScoped<ITenantService, TenantService>();
+            builder.Services.AddScoped<ISoftDeleteTenantService, SoftDeleteTenantService>();
+            builder.Services.AddScoped<IActivateTenantService, ActivateTenantService>();
+            builder.Services.AddScoped<IDeactivateTenantService, DeactivateTenantService>();
 
             // ── Controllers ────────────────────────────────────────────
             builder.Services.AddControllers();
