@@ -17,6 +17,8 @@ using Restaurant.Application.SuperAdmin.Interfaces.Subscription.GetAllSubscripti
 using Restaurant.Application.SuperAdmin.Services.Subscription.GetAllSubscriptions;
 using Restaurant.Application.SuperAdmin.Interfaces.Subscription.CreateSubscription;
 using Restaurant.Application.SuperAdmin.Services.Subscription.CreateSubscription;
+using Restaurant.Application.SuperAdmin.Interfaces.Subscription.UpdateSubscription;
+using Restaurant.Application.SuperAdmin.Services.Subscription.UpdateSubscription;
 using Restaurnat.Infra.Authentication;
 using Restaurnat.Infra.Context;
 using Restaurnat.Infra.SuperAdmin;
@@ -26,6 +28,7 @@ using Restaurnat.Infra.SuperAdmin.ActivateTenant;
 using Restaurnat.Infra.SuperAdmin.DeactivateTenant;
 using Restaurnat.Infra.SuperAdmin.Subscription.GetAllSubscriptions;
 using Restaurnat.Infra.SuperAdmin.Subscription.CreateSubscription;
+using Restaurnat.Infra.SuperAdmin.Subscription.UpdateSubscription;
 using Scalar.AspNetCore;
 using System.Text;
 
@@ -61,6 +64,7 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IDeactivateTenantService, DeactivateTenantService>();
             builder.Services.AddScoped<IGetAllSubscriptionsService, GetAllSubscriptionsService>();
             builder.Services.AddScoped<ICreateSubscriptionService, CreateSubscriptionService>();
+            builder.Services.AddScoped<IUpdateSubscriptionService, UpdateSubscriptionService>();
 
             // ── Controllers ────────────────────────────────────────────
             builder.Services.AddControllers();

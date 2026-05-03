@@ -4,6 +4,7 @@ using Restaurant.Application.Common;
 using Restaurant.Application.SuperAdmin.DTOs;
 using Restaurant.Application.SuperAdmin.Interfaces.Subscription.GetAllSubscriptions;
 using Restaurant.Application.SuperAdmin.Interfaces.Subscription.CreateSubscription;
+using Restaurant.Application.SuperAdmin.Interfaces.Subscription.UpdateSubscription;
 
 namespace Restaurant.Api.Controllers.SuperAdmin.Subscriptions
 {
@@ -14,13 +15,16 @@ namespace Restaurant.Api.Controllers.SuperAdmin.Subscriptions
     {
         private readonly IGetAllSubscriptionsService _getAllSubscriptionsService;
         private readonly ICreateSubscriptionService _createSubscriptionService;
+        private readonly IUpdateSubscriptionService _updateSubscriptionService;
 
         public SubscriptionController(
             IGetAllSubscriptionsService getAllSubscriptionsService,
-            ICreateSubscriptionService createSubscriptionService)
+            ICreateSubscriptionService createSubscriptionService,
+            IUpdateSubscriptionService updateSubscriptionService)
         {
             _getAllSubscriptionsService = getAllSubscriptionsService;
             _createSubscriptionService = createSubscriptionService;
+            _updateSubscriptionService = updateSubscriptionService;
         }
 
         [HttpGet]
@@ -36,6 +40,16 @@ namespace Restaurant.Api.Controllers.SuperAdmin.Subscriptions
             [FromBody] CreateSubscriptionDto createDto)
         {
             var result = await _createSubscriptionService.CreateSubscriptionAsync(createDto);
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ApiResponse<SubscriptionPlanDto>>> UpdateSubscription(
+            int id,
+            [FromBody] UpdateSubscriptionDto updateDto)
+        {
+            var result = await _updateSubscriptionService.UpdateSubscriptionAsync(id, updateDto);
 
             return StatusCode(result.StatusCode, result);
         }
