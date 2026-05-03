@@ -5,6 +5,7 @@ using Restaurant.Application.SuperAdmin.DTOs;
 using Restaurant.Application.SuperAdmin.Interfaces.Subscription.GetAllSubscriptions;
 using Restaurant.Application.SuperAdmin.Interfaces.Subscription.CreateSubscription;
 using Restaurant.Application.SuperAdmin.Interfaces.Subscription.UpdateSubscription;
+using Restaurant.Application.SuperAdmin.Interfaces.Subscription.DeleteSubscription;
 
 namespace Restaurant.Api.Controllers.SuperAdmin.Subscriptions
 {
@@ -16,15 +17,18 @@ namespace Restaurant.Api.Controllers.SuperAdmin.Subscriptions
         private readonly IGetAllSubscriptionsService _getAllSubscriptionsService;
         private readonly ICreateSubscriptionService _createSubscriptionService;
         private readonly IUpdateSubscriptionService _updateSubscriptionService;
+        private readonly IDeleteSubscriptionService _deleteSubscriptionService;
 
         public SubscriptionController(
             IGetAllSubscriptionsService getAllSubscriptionsService,
             ICreateSubscriptionService createSubscriptionService,
-            IUpdateSubscriptionService updateSubscriptionService)
+            IUpdateSubscriptionService updateSubscriptionService,
+            IDeleteSubscriptionService deleteSubscriptionService)
         {
             _getAllSubscriptionsService = getAllSubscriptionsService;
             _createSubscriptionService = createSubscriptionService;
             _updateSubscriptionService = updateSubscriptionService;
+            _deleteSubscriptionService = deleteSubscriptionService;
         }
 
         [HttpGet]
@@ -50,6 +54,14 @@ namespace Restaurant.Api.Controllers.SuperAdmin.Subscriptions
             [FromBody] UpdateSubscriptionDto updateDto)
         {
             var result = await _updateSubscriptionService.UpdateSubscriptionAsync(id, updateDto);
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ApiResponse<bool>>> DeleteSubscription(int id)
+        {
+            var result = await _deleteSubscriptionService.DeleteSubscriptionAsync(id);
 
             return StatusCode(result.StatusCode, result);
         }

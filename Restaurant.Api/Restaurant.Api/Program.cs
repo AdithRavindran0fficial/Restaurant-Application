@@ -19,6 +19,8 @@ using Restaurant.Application.SuperAdmin.Interfaces.Subscription.CreateSubscripti
 using Restaurant.Application.SuperAdmin.Services.Subscription.CreateSubscription;
 using Restaurant.Application.SuperAdmin.Interfaces.Subscription.UpdateSubscription;
 using Restaurant.Application.SuperAdmin.Services.Subscription.UpdateSubscription;
+using Restaurant.Application.SuperAdmin.Interfaces.Subscription.DeleteSubscription;
+using Restaurant.Application.SuperAdmin.Services.Subscription.DeleteSubscription;
 using Restaurnat.Infra.Authentication;
 using Restaurnat.Infra.Context;
 using Restaurnat.Infra.SuperAdmin;
@@ -29,6 +31,7 @@ using Restaurnat.Infra.SuperAdmin.DeactivateTenant;
 using Restaurnat.Infra.SuperAdmin.Subscription.GetAllSubscriptions;
 using Restaurnat.Infra.SuperAdmin.Subscription.CreateSubscription;
 using Restaurnat.Infra.SuperAdmin.Subscription.UpdateSubscription;
+using Restaurnat.Infra.SuperAdmin.Subscription.DeleteSubscription;
 using Scalar.AspNetCore;
 using System.Text;
 
@@ -57,6 +60,7 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IGetAllSubscriptionsRepository, GetAllSubscriptionsRepository>();
             builder.Services.AddScoped<ICreateSubscriptionRepository, CreateSubscriptionRepository>();
             builder.Services.AddScoped<IUpdateSubscriptionRepository, UpdateSubscriptionRepository>();
+            builder.Services.AddScoped<IDeleteSubscriptionRepository, DeleteSubscriptionRepository>();
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
             // ── Services ───────────────────────────────────────────────
@@ -71,6 +75,7 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IGetAllSubscriptionsService, GetAllSubscriptionsService>();
             builder.Services.AddScoped<ICreateSubscriptionService, CreateSubscriptionService>();
             builder.Services.AddScoped<IUpdateSubscriptionService, UpdateSubscriptionService>();
+            builder.Services.AddScoped<IDeleteSubscriptionService, DeleteSubscriptionService>();
 
             // ── Controllers ────────────────────────────────────────────
             builder.Services.AddControllers();
