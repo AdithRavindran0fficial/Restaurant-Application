@@ -30,6 +30,7 @@ public class TenantService : ITenantService
                 PrimaryPhone = t.PrimaryPhone,
                 CountryId = t.CountryId,
                 IsActive = t.IsActive,
+                StorageUsedMb = t.StorageUsedMb,
                 TrialEndsAt = t.TrialEndsAt,
                 CreatedAt = t.CreatedAt,
                 UpdatedAt = t.UpdatedAt
@@ -83,6 +84,7 @@ public class TenantService : ITenantService
                 PrimaryPhone = tenant.PrimaryPhone,
                 CountryId = tenant.CountryId,
                 IsActive = tenant.IsActive,
+                StorageUsedMb = tenant.StorageUsedMb,
                 TrialEndsAt = tenant.TrialEndsAt,
                 CreatedAt = tenant.CreatedAt,
                 UpdatedAt = tenant.UpdatedAt

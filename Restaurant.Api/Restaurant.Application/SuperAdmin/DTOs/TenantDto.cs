@@ -10,6 +10,7 @@ public class TenantDto
     public string? PrimaryPhone { get; set; }
     public int? CountryId { get; set; }
     public bool IsActive { get; set; }
+    public long StorageUsedMb { get; set; }
     public DateTime? TrialEndsAt { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }

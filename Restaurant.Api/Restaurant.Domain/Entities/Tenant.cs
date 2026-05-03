@@ -23,6 +23,8 @@ namespace Restaurant.Domain.Entities
 
         public bool IsDeleted { get; set; } = false;
 
+        public long StorageUsedMb { get; set; } = 0;
+
         public DateTime? TrialEndsAt { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

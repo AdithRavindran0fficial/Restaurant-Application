@@ -51,6 +51,12 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IRegistrationRepository, RegistrationRepository>();
             builder.Services.AddScoped<ISuperAdminRepository, SuperAdminRepository>();
             builder.Services.AddScoped<ITenantRepository, TenantRepository>();
+            builder.Services.AddScoped<ISoftDeleteTenantRepository, SoftDeleteTenantRepository>();
+            builder.Services.AddScoped<IActivateTenantRepository, ActivateTenantRepository>();
+            builder.Services.AddScoped<IDeactivateTenantRepository, DeactivateTenantRepository>();
+            builder.Services.AddScoped<IGetAllSubscriptionsRepository, GetAllSubscriptionsRepository>();
+            builder.Services.AddScoped<ICreateSubscriptionRepository, CreateSubscriptionRepository>();
+            builder.Services.AddScoped<IUpdateSubscriptionRepository, UpdateSubscriptionRepository>();
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
             // ── Services ───────────────────────────────────────────────
