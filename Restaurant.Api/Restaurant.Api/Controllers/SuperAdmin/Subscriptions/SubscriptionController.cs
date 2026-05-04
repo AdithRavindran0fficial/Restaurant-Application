@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Restaurant.Application.Common;
 using Restaurant.Application.SuperAdmin.DTOs;
 using Restaurant.Application.SuperAdmin.Interfaces.Subscription.GetAllSubscriptions;
+using Restaurant.Application.SuperAdmin.Interfaces.Subscription.GetSubscriptionById;
 using Restaurant.Application.SuperAdmin.Interfaces.Subscription.CreateSubscription;
 using Restaurant.Application.SuperAdmin.Interfaces.Subscription.UpdateSubscription;
 using Restaurant.Application.SuperAdmin.Interfaces.Subscription.DeleteSubscription;
@@ -17,6 +18,7 @@ namespace Restaurant.Api.Controllers.SuperAdmin.Subscriptions
     public class SubscriptionController : ControllerBase
     {
         private readonly IGetAllSubscriptionsService _getAllSubscriptionsService;
+        private readonly IGetSubscriptionByIdService _getSubscriptionByIdService;
         private readonly ICreateSubscriptionService _createSubscriptionService;
         private readonly IUpdateSubscriptionService _updateSubscriptionService;
         private readonly IDeleteSubscriptionService _deleteSubscriptionService;
@@ -25,6 +27,7 @@ namespace Restaurant.Api.Controllers.SuperAdmin.Subscriptions
 
         public SubscriptionController(
             IGetAllSubscriptionsService getAllSubscriptionsService,
+            IGetSubscriptionByIdService getSubscriptionByIdService,
             ICreateSubscriptionService createSubscriptionService,
             IUpdateSubscriptionService updateSubscriptionService,
             IDeleteSubscriptionService deleteSubscriptionService,
@@ -32,6 +35,7 @@ namespace Restaurant.Api.Controllers.SuperAdmin.Subscriptions
             IDeactivateSubscriptionService deactivateSubscriptionService)
         {
             _getAllSubscriptionsService = getAllSubscriptionsService;
+            _getSubscriptionByIdService = getSubscriptionByIdService;
             _createSubscriptionService = createSubscriptionService;
             _updateSubscriptionService = updateSubscriptionService;
             _deleteSubscriptionService = deleteSubscriptionService;
@@ -43,6 +47,14 @@ namespace Restaurant.Api.Controllers.SuperAdmin.Subscriptions
         public async Task<ActionResult<ApiResponse<IEnumerable<SubscriptionPlanDto>>>> GetAllSubscriptions()
         {
             var result = await _getAllSubscriptionsService.GetAllSubscriptionsAsync();
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ApiResponse<SubscriptionPlanDto>>> GetSubscriptionById(int id)
+        {
+            var result = await _getSubscriptionByIdService.GetSubscriptionByIdAsync(id);
 
             return StatusCode(result.StatusCode, result);
         }
