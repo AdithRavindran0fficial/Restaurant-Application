@@ -21,6 +21,10 @@ using Restaurant.Application.SuperAdmin.Interfaces.Subscription.UpdateSubscripti
 using Restaurant.Application.SuperAdmin.Services.Subscription.UpdateSubscription;
 using Restaurant.Application.SuperAdmin.Interfaces.Subscription.DeleteSubscription;
 using Restaurant.Application.SuperAdmin.Services.Subscription.DeleteSubscription;
+using Restaurant.Application.SuperAdmin.Interfaces.Subscription.ActivateSubscription;
+using Restaurant.Application.SuperAdmin.Services.Subscription.ActivateSubscription;
+using Restaurant.Application.SuperAdmin.Interfaces.Subscription.DeactivateSubscription;
+using Restaurant.Application.SuperAdmin.Services.Subscription.DeactivateSubscription;
 using Restaurnat.Infra.Authentication;
 using Restaurnat.Infra.Context;
 using Restaurnat.Infra.SuperAdmin;
@@ -32,6 +36,8 @@ using Restaurnat.Infra.SuperAdmin.Subscription.GetAllSubscriptions;
 using Restaurnat.Infra.SuperAdmin.Subscription.CreateSubscription;
 using Restaurnat.Infra.SuperAdmin.Subscription.UpdateSubscription;
 using Restaurnat.Infra.SuperAdmin.Subscription.DeleteSubscription;
+using Restaurnat.Infra.SuperAdmin.Subscription.ActivateSubscription;
+using Restaurnat.Infra.SuperAdmin.Subscription.DeactivateSubscription;
 using Scalar.AspNetCore;
 using System.Text;
 
@@ -61,6 +67,8 @@ namespace Restaurant.Api
             builder.Services.AddScoped<ICreateSubscriptionRepository, CreateSubscriptionRepository>();
             builder.Services.AddScoped<IUpdateSubscriptionRepository, UpdateSubscriptionRepository>();
             builder.Services.AddScoped<IDeleteSubscriptionRepository, DeleteSubscriptionRepository>();
+            builder.Services.AddScoped<IActivateSubscriptionRepository, ActivateSubscriptionRepository>();
+            builder.Services.AddScoped<IDeactivateSubscriptionRepository, DeactivateSubscriptionRepository>();
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
             // ── Services ───────────────────────────────────────────────
@@ -76,6 +84,8 @@ namespace Restaurant.Api
             builder.Services.AddScoped<ICreateSubscriptionService, CreateSubscriptionService>();
             builder.Services.AddScoped<IUpdateSubscriptionService, UpdateSubscriptionService>();
             builder.Services.AddScoped<IDeleteSubscriptionService, DeleteSubscriptionService>();
+            builder.Services.AddScoped<IActivateSubscriptionService, ActivateSubscriptionService>();
+            builder.Services.AddScoped<IDeactivateSubscriptionService, DeactivateSubscriptionService>();
 
             // ── Controllers ────────────────────────────────────────────
             builder.Services.AddControllers();

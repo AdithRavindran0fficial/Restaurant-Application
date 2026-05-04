@@ -6,6 +6,8 @@ using Restaurant.Application.SuperAdmin.Interfaces.Subscription.GetAllSubscripti
 using Restaurant.Application.SuperAdmin.Interfaces.Subscription.CreateSubscription;
 using Restaurant.Application.SuperAdmin.Interfaces.Subscription.UpdateSubscription;
 using Restaurant.Application.SuperAdmin.Interfaces.Subscription.DeleteSubscription;
+using Restaurant.Application.SuperAdmin.Interfaces.Subscription.ActivateSubscription;
+using Restaurant.Application.SuperAdmin.Interfaces.Subscription.DeactivateSubscription;
 
 namespace Restaurant.Api.Controllers.SuperAdmin.Subscriptions
 {
@@ -18,17 +20,23 @@ namespace Restaurant.Api.Controllers.SuperAdmin.Subscriptions
         private readonly ICreateSubscriptionService _createSubscriptionService;
         private readonly IUpdateSubscriptionService _updateSubscriptionService;
         private readonly IDeleteSubscriptionService _deleteSubscriptionService;
+        private readonly IActivateSubscriptionService _activateSubscriptionService;
+        private readonly IDeactivateSubscriptionService _deactivateSubscriptionService;
 
         public SubscriptionController(
             IGetAllSubscriptionsService getAllSubscriptionsService,
             ICreateSubscriptionService createSubscriptionService,
             IUpdateSubscriptionService updateSubscriptionService,
-            IDeleteSubscriptionService deleteSubscriptionService)
+            IDeleteSubscriptionService deleteSubscriptionService,
+            IActivateSubscriptionService activateSubscriptionService,
+            IDeactivateSubscriptionService deactivateSubscriptionService)
         {
             _getAllSubscriptionsService = getAllSubscriptionsService;
             _createSubscriptionService = createSubscriptionService;
             _updateSubscriptionService = updateSubscriptionService;
             _deleteSubscriptionService = deleteSubscriptionService;
+            _activateSubscriptionService = activateSubscriptionService;
+            _deactivateSubscriptionService = deactivateSubscriptionService;
         }
 
         [HttpGet]
@@ -62,6 +70,22 @@ namespace Restaurant.Api.Controllers.SuperAdmin.Subscriptions
         public async Task<ActionResult<ApiResponse<bool>>> DeleteSubscription(int id)
         {
             var result = await _deleteSubscriptionService.DeleteSubscriptionAsync(id);
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpPatch("{id}/activate")]
+        public async Task<ActionResult<ApiResponse<bool>>> ActivateSubscription(int id)
+        {
+            var result = await _activateSubscriptionService.ActivateSubscriptionAsync(id);
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpPatch("{id}/deactivate")]
+        public async Task<ActionResult<ApiResponse<bool>>> DeactivateSubscription(int id)
+        {
+            var result = await _deactivateSubscriptionService.DeactivateSubscriptionAsync(id);
 
             return StatusCode(result.StatusCode, result);
         }
