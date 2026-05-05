@@ -29,6 +29,8 @@ using Restaurant.Application.SuperAdmin.Interfaces.Subscription.DeactivateSubscr
 using Restaurant.Application.SuperAdmin.Services.Subscription.DeactivateSubscription;
 using Restaurant.Application.SuperAdmin.Interfaces.TenantSubscriptionManagement.GetTenantSubscription;
 using Restaurant.Application.SuperAdmin.Services.TenantSubscriptionManagement.GetTenantSubscription;
+using Restaurant.Application.SuperAdmin.Interfaces.TenantSubscriptionManagement.AssignSubscription;
+using Restaurant.Application.SuperAdmin.Services.TenantSubscriptionManagement.AssignSubscription;
 using Restaurnat.Infra.Authentication;
 using Restaurnat.Infra.Context;
 using Restaurnat.Infra.SuperAdmin;
@@ -44,6 +46,7 @@ using Restaurnat.Infra.SuperAdmin.Subscription.DeleteSubscription;
 using Restaurnat.Infra.SuperAdmin.Subscription.ActivateSubscription;
 using Restaurnat.Infra.SuperAdmin.Subscription.DeactivateSubscription;
 using Restaurnat.Infra.SuperAdmin.TenantSubscriptionManagement.GetTenantSubscription;
+using Restaurnat.Infra.SuperAdmin.TenantSubscriptionManagement.AssignSubscription;
 using Scalar.AspNetCore;
 using System.Text;
 
@@ -77,6 +80,7 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IActivateSubscriptionRepository, ActivateSubscriptionRepository>();
             builder.Services.AddScoped<IDeactivateSubscriptionRepository, DeactivateSubscriptionRepository>();
             builder.Services.AddScoped<IGetTenantSubscriptionRepository, GetTenantSubscriptionRepository>();
+            builder.Services.AddScoped<IAssignSubscriptionRepository, AssignSubscriptionRepository>();
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
             // ── Services ───────────────────────────────────────────────
@@ -96,6 +100,7 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IActivateSubscriptionService, ActivateSubscriptionService>();
             builder.Services.AddScoped<IDeactivateSubscriptionService, DeactivateSubscriptionService>();
             builder.Services.AddScoped<IGetTenantSubscriptionService, GetTenantSubscriptionService>();
+            builder.Services.AddScoped<IAssignSubscriptionService, AssignSubscriptionService>();
 
             // ── Controllers ────────────────────────────────────────────
             builder.Services.AddControllers();
