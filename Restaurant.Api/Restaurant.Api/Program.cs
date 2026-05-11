@@ -84,23 +84,23 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
             // ── Services ───────────────────────────────────────────────
-            //builder.Services.AddScoped<IRegistrationService, RegistrationService>();
-            //builder.Services.AddScoped<IJwtService, JwtService>();
-            //builder.Services.AddScoped<IAuthService, AuthService>();
-            //builder.Services.AddScoped<ISuperAdminService, SuperAdminService>();
-            //builder.Services.AddScoped<ITenantService, TenantService>();
-            //builder.Services.AddScoped<ISoftDeleteTenantService, SoftDeleteTenantService>();
-            //builder.Services.AddScoped<IActivateTenantService, ActivateTenantService>();
-            //builder.Services.AddScoped<IDeactivateTenantService, DeactivateTenantService>();
-            //builder.Services.AddScoped<IGetAllSubscriptionsService, GetAllSubscriptionsService>();
-            //builder.Services.AddScoped<IGetSubscriptionByIdService, GetSubscriptionByIdService>();
-            //builder.Services.AddScoped<ICreateSubscriptionService, CreateSubscriptionService>();
-            //builder.Services.AddScoped<IUpdateSubscriptionService, UpdateSubscriptionService>();
-            //builder.Services.AddScoped<IDeleteSubscriptionService, DeleteSubscriptionService>();
-            //builder.Services.AddScoped<IActivateSubscriptionService, ActivateSubscriptionService>();
-            //builder.Services.AddScoped<IDeactivateSubscriptionService, DeactivateSubscriptionService>();
-            //builder.Services.AddScoped<IGetTenantSubscriptionService, GetTenantSubscriptionService>();
-            //builder.Services.AddScoped<IAssignSubscriptionService, AssignSubscriptionService>();
+            builder.Services.AddScoped<IRegistrationService, RegistrationService>();
+            builder.Services.AddScoped<IJwtService, JwtService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<ISuperAdminService, SuperAdminService>();
+            builder.Services.AddScoped<ITenantService, TenantService>();
+            builder.Services.AddScoped<ISoftDeleteTenantService, SoftDeleteTenantService>();
+            builder.Services.AddScoped<IActivateTenantService, ActivateTenantService>();
+            builder.Services.AddScoped<IDeactivateTenantService, DeactivateTenantService>();
+            builder.Services.AddScoped<IGetAllSubscriptionsService, GetAllSubscriptionsService>();
+            builder.Services.AddScoped<IGetSubscriptionByIdService, GetSubscriptionByIdService>();
+            builder.Services.AddScoped<ICreateSubscriptionService, CreateSubscriptionService>();
+            builder.Services.AddScoped<IUpdateSubscriptionService, UpdateSubscriptionService>();
+            builder.Services.AddScoped<IDeleteSubscriptionService, DeleteSubscriptionService>();
+            builder.Services.AddScoped<IActivateSubscriptionService, ActivateSubscriptionService>();
+            builder.Services.AddScoped<IDeactivateSubscriptionService, DeactivateSubscriptionService>();
+            builder.Services.AddScoped<IGetTenantSubscriptionService, GetTenantSubscriptionService>();
+            builder.Services.AddScoped<IAssignSubscriptionService, AssignSubscriptionService>();
 
             // ── Controllers ────────────────────────────────────────────
             builder.Services.AddControllers();
