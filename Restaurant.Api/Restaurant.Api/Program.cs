@@ -33,6 +33,9 @@ using Restaurant.Application.SuperAdmin.Interfaces.TenantSubscriptionManagement.
 using Restaurant.Application.SuperAdmin.Services.TenantSubscriptionManagement.AssignSubscription;
 using Restaurant.Application.SuperAdmin.Interfaces.TenantSubscriptionManagement.CancelSubscription;
 using Restaurant.Application.SuperAdmin.Services.TenantSubscriptionManagement.CancelSubscription;
+using Restaurant.Application.SuperAdmin.Interfaces.DashBoard;
+using Restaurant.Application.SuperAdmin.Services.DashBoard;
+using Restaurnat.Infra.SuperAdmin.DashBoard;
 using Restaurnat.Infra.Authentication;
 using Restaurnat.Infra.Context;
 using Restaurnat.Infra.SuperAdmin;
@@ -85,6 +88,7 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IGetTenantSubscriptionRepository, GetTenantSubscriptionRepository>();
             builder.Services.AddScoped<IAssignSubscriptionRepository, AssignSubscriptionRepository>();
             builder.Services.AddScoped<ICancelSubscriptionRepository, CancelSubscriptionRepository>();
+            builder.Services.AddScoped<IDashBoardAnalyticsRepository, DashBoardAnalysticsRepository>();
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
             // ── Services ───────────────────────────────────────────────
@@ -106,8 +110,9 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IGetTenantSubscriptionService, GetTenantSubscriptionService>();
             builder.Services.AddScoped<IAssignSubscriptionService, AssignSubscriptionService>();
             builder.Services.AddScoped<ICancelSubscriptionService, CancelSubscriptionService>();
+            builder.Services.AddScoped<IDashBoardAnalyticsService, DashBoardAnalyticsService>();
 
-            // ── Controllers ────────────────────────────────────────────
+            // ── Controllers
             builder.Services.AddControllers();
 
             builder.Services.AddEndpointsApiExplorer(); // ← ADD THIS
