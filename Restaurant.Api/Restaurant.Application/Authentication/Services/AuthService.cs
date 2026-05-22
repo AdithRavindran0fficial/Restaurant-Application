@@ -136,7 +136,6 @@ public class AuthService : IAuthService
 
         return ApiResponse<LoginResponseDto>.SuccessResponse(staffResponse, "Login successful");
     }
-
     public async Task<ApiResponse<object>> LogoutAsync(int userId, string role)
     {
         throw new NotImplementedException();

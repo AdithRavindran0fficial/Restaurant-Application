@@ -53,6 +53,9 @@ using Restaurnat.Infra.SuperAdmin.Subscription.DeactivateSubscription;
 using Restaurnat.Infra.SuperAdmin.TenantSubscriptionManagement.GetTenantSubscription;
 using Restaurnat.Infra.SuperAdmin.TenantSubscriptionManagement.AssignSubscription;
 using Restaurnat.Infra.SuperAdmin.TenantSubscriptionManagement.CancelSubscription;
+using Restaurant.Application.Admin.Interfaces.Tables.GetAllTables;
+using Restaurant.Application.Admin.Services.Tables.GetAllTables;
+using Restaurnat.Infra.Admin.Tables.GetAllTables;
 using Scalar.AspNetCore;
 using System.Text;
 
@@ -89,6 +92,7 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IAssignSubscriptionRepository, AssignSubscriptionRepository>();
             builder.Services.AddScoped<ICancelSubscriptionRepository, CancelSubscriptionRepository>();
             builder.Services.AddScoped<IDashBoardAnalyticsRepository, DashBoardAnalysticsRepository>();
+            builder.Services.AddScoped<IGetAllTablesRepository, GetAllTablesRepository>();
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
             // ── Services ───────────────────────────────────────────────
@@ -111,6 +115,7 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IAssignSubscriptionService, AssignSubscriptionService>();
             builder.Services.AddScoped<ICancelSubscriptionService, CancelSubscriptionService>();
             builder.Services.AddScoped<IDashBoardAnalyticsService, DashBoardAnalyticsService>();
+            builder.Services.AddScoped<IGetAllTablesService, GetAllTablesService>();
 
             // ── Controllers
             builder.Services.AddControllers();
