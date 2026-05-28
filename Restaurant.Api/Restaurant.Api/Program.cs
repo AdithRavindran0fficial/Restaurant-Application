@@ -57,8 +57,11 @@ using Restaurant.Application.Admin.Interfaces.Tables.GetAllTables;
 using Restaurant.Application.Admin.Services.Tables.GetAllTables;
 using Restaurant.Application.Admin.Interfaces.Tables.GetTableById;
 using Restaurant.Application.Admin.Services.Tables.GetTableById;
+using Restaurant.Application.Admin.Interfaces.Tables.CreateTable;
+using Restaurant.Application.Admin.Services.Tables.CreateTable;
 using Restaurnat.Infra.Admin.Tables.GetAllTables;
 using Restaurnat.Infra.Admin.Tables.GetTableById;
+using Restaurnat.Infra.Admin.Tables.CreateTable;
 using Scalar.AspNetCore;
 using System.Text;
 
@@ -97,6 +100,7 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IDashBoardAnalyticsRepository, DashBoardAnalysticsRepository>();
             builder.Services.AddScoped<IGetAllTablesRepository, GetAllTablesRepository>();
             builder.Services.AddScoped<IGetTableByIdRepository, GetTableByIdRepository>();
+            builder.Services.AddScoped<ICreateTableRepository, CreateTableRepository>();
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
             // ── Services ───────────────────────────────────────────────
@@ -121,6 +125,7 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IDashBoardAnalyticsService, DashBoardAnalyticsService>();
             builder.Services.AddScoped<IGetAllTablesService, GetAllTablesService>();
             builder.Services.AddScoped<IGetTableByIdService, GetTableByIdService>();
+            builder.Services.AddScoped<ICreateTableService, CreateTableService>();
 
             // ── Controllers
             builder.Services.AddControllers();

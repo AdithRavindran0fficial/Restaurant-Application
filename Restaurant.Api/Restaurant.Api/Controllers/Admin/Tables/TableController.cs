@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Restaurant.Application.Admin.DTOs;
 using Restaurant.Application.Admin.Interfaces.Tables.GetAllTables;
 using Restaurant.Application.Admin.Interfaces.Tables.GetTableById;
+using Restaurant.Application.Admin.Interfaces.Tables.CreateTable;
 using Restaurant.Application.Common;
 using System.Collections.Generic;
 
@@ -15,13 +16,16 @@ namespace Restaurant.Api.Controllers.Admin.Tables
     {
         private readonly IGetAllTablesService _getAllTablesService;
         private readonly IGetTableByIdService _getTableByIdService;
+        private readonly ICreateTableService _createTableService;
 
         public TableController(
             IGetAllTablesService getAllTablesService,
-            IGetTableByIdService getTableByIdService)
+            IGetTableByIdService getTableByIdService,
+            ICreateTableService createTableService)
         {
             _getAllTablesService = getAllTablesService;
             _getTableByIdService = getTableByIdService;
+            _createTableService = createTableService;
         }
 
         [HttpGet]
@@ -52,6 +56,22 @@ namespace Restaurant.Api.Controllers.Admin.Tables
             }
 
             var result = await _getTableByIdService.GetTableByIdAsync(tenantId, tableId);
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<ApiResponse<DiningTableDto>>> CreateTable([FromBody] CreateTableDto dto)
+        {
+            var tenantIdClaim = User.FindFirst("tenantId")?.Value;
+
+            if (string.IsNullOrWhiteSpace(tenantIdClaim) || !int.TryParse(tenantIdClaim, out int tenantId))
+            {
+                return Unauthorized(ApiResponse<DiningTableDto>.UnauthorizedResponse(
+                    "Tenant information missing from token"));
+            }
+
+            var result = await _createTableService.CreateTableAsync(tenantId, dto);
 
             return StatusCode(result.StatusCode, result);
         }
