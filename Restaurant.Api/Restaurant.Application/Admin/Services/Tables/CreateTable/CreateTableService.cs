@@ -1,6 +1,9 @@
+using Microsoft.Extensions.Configuration;
+using QRCoder;
 using Restaurant.Application.Admin.DTOs;
 using Restaurant.Application.Admin.Interfaces.Tables.CreateTable;
 using Restaurant.Application.Common;
+using Restaurant.Application.Common.ImageServices;
 using Restaurant.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,10 +14,14 @@ namespace Restaurant.Application.Admin.Services.Tables.CreateTable
     public class CreateTableService : ICreateTableService
     {
         private readonly ICreateTableRepository _repository;
+        private readonly IImageUploaderService _imageUploaderService;
+        private readonly IConfiguration _configuration;
 
-        public CreateTableService(ICreateTableRepository repository)
+        public CreateTableService(ICreateTableRepository repository, IImageUploaderService imageUploader, IConfiguration configuration)
         {
             _repository = repository;
+            _imageUploaderService = imageUploader;
+            _configuration = configuration;
         }
 
         public async Task<ApiResponse<DiningTableDto>> CreateTableAsync(int tenantId, CreateTableDto dto)
@@ -32,13 +39,27 @@ namespace Restaurant.Application.Admin.Services.Tables.CreateTable
                 return ApiResponse<DiningTableDto>.ConflictResponse(
                     $"Table number {dto.TableNumber} already exists for this tenant");
             }
+            var qrToken = Guid.NewGuid().ToString("N");
+            var menuBaseUrl = _configuration["FrontEnd:MenuUrl"];
+            var qrUrl = $"{menuBaseUrl}/{qrToken}";
+
+            var qrGenerator = new QRCodeGenerator();
+            var qrData = qrGenerator.CreateQrCode(qrUrl, QRCodeGenerator.ECCLevel.Q);
+            var pngQrCode = new PngByteQRCode(qrData);
+            var qrImageBytes = pngQrCode.GetGraphic(10);
+
+            var fileName = $"table-{tenantId}-{qrToken}.png";
+            var qrCodeImageUrl = await _imageUploaderService.UploadImageAsync(
+                qrImageBytes, fileName, tenantId.ToString(), "qr-codes", "image/png");
 
             var table = new DiningTable
             {
                 TenantId = tenantId,
                 TableNumber = dto.TableNumber,
                 Capacity = dto.Capacity,
-                QrToken = Guid.NewGuid().ToString("N"),
+                QrToken = qrToken,
+                QrUrl = qrUrl,
+                QrCodeImageUrl = qrCodeImageUrl,
                 IsOccupied = false,
                 IsActive = true,
                 IsDeleted = false,

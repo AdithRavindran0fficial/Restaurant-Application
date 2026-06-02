@@ -64,6 +64,7 @@ using Restaurnat.Infra.Admin.Tables.GetTableById;
 using Restaurnat.Infra.Admin.Tables.CreateTable;
 using Scalar.AspNetCore;
 using System.Text;
+using Restaurant.Application.Common.ImageServices;
 
 namespace Restaurant.Api
 {
@@ -126,6 +127,7 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IGetAllTablesService, GetAllTablesService>();
             builder.Services.AddScoped<IGetTableByIdService, GetTableByIdService>();
             builder.Services.AddScoped<ICreateTableService, CreateTableService>();
+            builder.Services.AddScoped<IImageUploaderService, ImageUploaderService>();
 
             // ── Controllers
             builder.Services.AddControllers();
