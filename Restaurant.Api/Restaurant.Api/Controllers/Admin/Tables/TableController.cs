@@ -4,6 +4,7 @@ using Restaurant.Application.Admin.DTOs;
 using Restaurant.Application.Admin.Interfaces.Tables.GetAllTables;
 using Restaurant.Application.Admin.Interfaces.Tables.GetTableById;
 using Restaurant.Application.Admin.Interfaces.Tables.CreateTable;
+using Restaurant.Application.Admin.Interfaces.Tables.UpdateTable;
 using Restaurant.Application.Common;
 using System.Collections.Generic;
 
@@ -17,15 +18,18 @@ namespace Restaurant.Api.Controllers.Admin.Tables
         private readonly IGetAllTablesService _getAllTablesService;
         private readonly IGetTableByIdService _getTableByIdService;
         private readonly ICreateTableService _createTableService;
+        private readonly IUpdateTableService _updateTableService;
 
         public TableController(
             IGetAllTablesService getAllTablesService,
             IGetTableByIdService getTableByIdService,
-            ICreateTableService createTableService)
+            ICreateTableService createTableService,
+            IUpdateTableService updateTableService)
         {
             _getAllTablesService = getAllTablesService;
             _getTableByIdService = getTableByIdService;
             _createTableService = createTableService;
+            _updateTableService = updateTableService;
         }
 
         [HttpGet]
@@ -72,6 +76,22 @@ namespace Restaurant.Api.Controllers.Admin.Tables
             }
 
             var result = await _createTableService.CreateTableAsync(tenantId, dto);
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpPut("{tableId}")]
+        public async Task<ActionResult<ApiResponse<DiningTableDto>>> UpdateTable(int tableId, [FromBody] UpdateTableDto dto)
+        {
+            var tenantIdClaim = User.FindFirst("tenantId")?.Value;
+
+            if (string.IsNullOrWhiteSpace(tenantIdClaim) || !int.TryParse(tenantIdClaim, out int tenantId))
+            {
+                return Unauthorized(ApiResponse<DiningTableDto>.UnauthorizedResponse(
+                    "Tenant information missing from token"));
+            }
+
+            var result = await _updateTableService.UpdateTableAsync(tenantId, tableId, dto);
 
             return StatusCode(result.StatusCode, result);
         }
