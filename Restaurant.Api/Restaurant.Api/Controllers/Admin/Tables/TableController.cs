@@ -6,6 +6,7 @@ using Restaurant.Application.Admin.Interfaces.Tables.GetTableById;
 using Restaurant.Application.Admin.Interfaces.Tables.CreateTable;
 using Restaurant.Application.Admin.Interfaces.Tables.UpdateTable;
 using Restaurant.Application.Admin.Interfaces.Tables.SoftDeleteTable;
+using Restaurant.Application.Admin.Interfaces.Tables.ActivateTable;
 using Restaurant.Application.Common;
 using System.Collections.Generic;
 
@@ -21,19 +22,22 @@ namespace Restaurant.Api.Controllers.Admin.Tables
         private readonly ICreateTableService _createTableService;
         private readonly IUpdateTableService _updateTableService;
         private readonly ISoftDeleteTableService _softDeleteTableService;
+        private readonly IActivateTableService _activateTableService;
 
         public TableController(
             IGetAllTablesService getAllTablesService,
             IGetTableByIdService getTableByIdService,
             ICreateTableService createTableService,
             IUpdateTableService updateTableService,
-            ISoftDeleteTableService softDeleteTableService)
+            ISoftDeleteTableService softDeleteTableService,
+            IActivateTableService activateTableService)
         {
             _getAllTablesService = getAllTablesService;
             _getTableByIdService = getTableByIdService;
             _createTableService = createTableService;
             _updateTableService = updateTableService;
             _softDeleteTableService = softDeleteTableService;
+            _activateTableService = activateTableService;
         }
 
         [HttpGet]
@@ -112,6 +116,22 @@ namespace Restaurant.Api.Controllers.Admin.Tables
             }
 
             var result = await _softDeleteTableService.SoftDeleteTableAsync(tenantId, tableId);
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpPatch("{tableId}/activate")]
+        public async Task<ActionResult<ApiResponse<bool>>> ActivateTable(int tableId)
+        {
+            var tenantIdClaim = User.FindFirst("tenantId")?.Value;
+
+            if (string.IsNullOrWhiteSpace(tenantIdClaim) || !int.TryParse(tenantIdClaim, out int tenantId))
+            {
+                return Unauthorized(ApiResponse<bool>.UnauthorizedResponse(
+                    "Tenant information missing from token"));
+            }
+
+            var result = await _activateTableService.ActivateTableAsync(tenantId, tableId);
 
             return StatusCode(result.StatusCode, result);
         }
