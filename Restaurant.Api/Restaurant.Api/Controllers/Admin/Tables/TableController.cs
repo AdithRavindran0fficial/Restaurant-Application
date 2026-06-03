@@ -5,6 +5,7 @@ using Restaurant.Application.Admin.Interfaces.Tables.GetAllTables;
 using Restaurant.Application.Admin.Interfaces.Tables.GetTableById;
 using Restaurant.Application.Admin.Interfaces.Tables.CreateTable;
 using Restaurant.Application.Admin.Interfaces.Tables.UpdateTable;
+using Restaurant.Application.Admin.Interfaces.Tables.SoftDeleteTable;
 using Restaurant.Application.Common;
 using System.Collections.Generic;
 
@@ -19,17 +20,20 @@ namespace Restaurant.Api.Controllers.Admin.Tables
         private readonly IGetTableByIdService _getTableByIdService;
         private readonly ICreateTableService _createTableService;
         private readonly IUpdateTableService _updateTableService;
+        private readonly ISoftDeleteTableService _softDeleteTableService;
 
         public TableController(
             IGetAllTablesService getAllTablesService,
             IGetTableByIdService getTableByIdService,
             ICreateTableService createTableService,
-            IUpdateTableService updateTableService)
+            IUpdateTableService updateTableService,
+            ISoftDeleteTableService softDeleteTableService)
         {
             _getAllTablesService = getAllTablesService;
             _getTableByIdService = getTableByIdService;
             _createTableService = createTableService;
             _updateTableService = updateTableService;
+            _softDeleteTableService = softDeleteTableService;
         }
 
         [HttpGet]
@@ -92,6 +96,22 @@ namespace Restaurant.Api.Controllers.Admin.Tables
             }
 
             var result = await _updateTableService.UpdateTableAsync(tenantId, tableId, dto);
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpDelete("{tableId}")]
+        public async Task<ActionResult<ApiResponse<bool>>> SoftDeleteTable(int tableId)
+        {
+            var tenantIdClaim = User.FindFirst("tenantId")?.Value;
+
+            if (string.IsNullOrWhiteSpace(tenantIdClaim) || !int.TryParse(tenantIdClaim, out int tenantId))
+            {
+                return Unauthorized(ApiResponse<bool>.UnauthorizedResponse(
+                    "Tenant information missing from token"));
+            }
+
+            var result = await _softDeleteTableService.SoftDeleteTableAsync(tenantId, tableId);
 
             return StatusCode(result.StatusCode, result);
         }

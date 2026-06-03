@@ -61,10 +61,13 @@ using Restaurant.Application.Admin.Interfaces.Tables.CreateTable;
 using Restaurant.Application.Admin.Services.Tables.CreateTable;
 using Restaurant.Application.Admin.Interfaces.Tables.UpdateTable;
 using Restaurant.Application.Admin.Services.Tables.UpdateTable;
+using Restaurant.Application.Admin.Interfaces.Tables.SoftDeleteTable;
+using Restaurant.Application.Admin.Services.Tables.SoftDeleteTable;
 using Restaurnat.Infra.Admin.Tables.GetAllTables;
 using Restaurnat.Infra.Admin.Tables.GetTableById;
 using Restaurnat.Infra.Admin.Tables.CreateTable;
 using Restaurnat.Infra.Admin.Tables.UpdateTable;
+using Restaurnat.Infra.Admin.Tables.SoftDeleteTable;
 using Scalar.AspNetCore;
 using System.Text;
 using Restaurant.Application.Common.ImageServices;
@@ -106,6 +109,7 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IGetTableByIdRepository, GetTableByIdRepository>();
             builder.Services.AddScoped<ICreateTableRepository, CreateTableRepository>();
             builder.Services.AddScoped<IUpdateTableRepository, UpdateTableRepository>();
+            builder.Services.AddScoped<ISoftDeleteTableRepository, SoftDeleteTableRepository>();
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
             // ── Services ───────────────────────────────────────────────
@@ -132,6 +136,7 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IGetTableByIdService, GetTableByIdService>();
             builder.Services.AddScoped<ICreateTableService, CreateTableService>();
             builder.Services.AddScoped<IUpdateTableService, UpdateTableService>();
+            builder.Services.AddScoped<ISoftDeleteTableService, SoftDeleteTableService>();
             builder.Services.AddScoped<IImageUploaderService, ImageUploaderService>();
 
             // ── Controllers
