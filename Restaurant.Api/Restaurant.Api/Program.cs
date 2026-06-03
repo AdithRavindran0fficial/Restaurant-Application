@@ -63,6 +63,8 @@ using Restaurant.Application.Admin.Interfaces.Tables.UpdateTable;
 using Restaurant.Application.Admin.Services.Tables.UpdateTable;
 using Restaurant.Application.Admin.Interfaces.Categories.GetAllCategories;
 using Restaurant.Application.Admin.Services.Categories.GetAllCategories;
+using Restaurant.Application.Admin.Interfaces.Categories.CreateCategory;
+using Restaurant.Application.Admin.Services.Categories.CreateCategory;
 using Restaurant.Application.Admin.Interfaces.Categories.GetCategoryById;
 using Restaurant.Application.Admin.Services.Categories.GetCategoryById;
 using Restaurant.Application.Admin.Interfaces.Tables.SoftDeleteTable;
@@ -83,6 +85,7 @@ using Restaurnat.Infra.Admin.Tables.DeactivateTable;
 using Restaurnat.Infra.Admin.Tables.RegenerateTableQr;
 using Restaurnat.Infra.Admin.Categories.GetAllCategories;
 using Restaurnat.Infra.Admin.Categories.GetCategoryById;
+using Restaurnat.Infra.Admin.Categories.CreateCategory;
 using Scalar.AspNetCore;
 using System.Text;
 using Restaurant.Application.Common.ImageServices;
@@ -130,6 +133,7 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IRegenerateTableQrRepository, RegenerateTableQrRepository>();
             builder.Services.AddScoped<IGetAllCategoriesRepository, GetAllCategoriesRepository>();
             builder.Services.AddScoped<IGetCategoryByIdRepository, GetCategoryByIdRepository>();
+            builder.Services.AddScoped<ICreateCategoryRepository, CreateCategoryRepository>();
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
             // ── Services ───────────────────────────────────────────────
@@ -162,6 +166,7 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IRegenerateTableQrService, RegenerateTableQrService>();
             builder.Services.AddScoped<IGetAllCategoriesService, GetAllCategoriesService>();
             builder.Services.AddScoped<IGetCategoryByIdService, GetCategoryByIdService>();
+            builder.Services.AddScoped<ICreateCategoryService, CreateCategoryService>();
             builder.Services.AddScoped<IImageUploaderService, ImageUploaderService>();
 
             // ── Controllers
