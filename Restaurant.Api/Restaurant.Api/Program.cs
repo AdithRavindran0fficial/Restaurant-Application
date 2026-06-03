@@ -67,6 +67,8 @@ using Restaurant.Application.Admin.Interfaces.Tables.ActivateTable;
 using Restaurant.Application.Admin.Services.Tables.ActivateTable;
 using Restaurant.Application.Admin.Interfaces.Tables.DeactivateTable;
 using Restaurant.Application.Admin.Services.Tables.DeactivateTable;
+using Restaurant.Application.Admin.Interfaces.Tables.RegenerateTableQr;
+using Restaurant.Application.Admin.Services.Tables.RegenerateTableQr;
 using Restaurnat.Infra.Admin.Tables.GetAllTables;
 using Restaurnat.Infra.Admin.Tables.GetTableById;
 using Restaurnat.Infra.Admin.Tables.CreateTable;
@@ -74,6 +76,7 @@ using Restaurnat.Infra.Admin.Tables.UpdateTable;
 using Restaurnat.Infra.Admin.Tables.SoftDeleteTable;
 using Restaurnat.Infra.Admin.Tables.ActivateTable;
 using Restaurnat.Infra.Admin.Tables.DeactivateTable;
+using Restaurnat.Infra.Admin.Tables.RegenerateTableQr;
 using Scalar.AspNetCore;
 using System.Text;
 using Restaurant.Application.Common.ImageServices;
@@ -118,6 +121,7 @@ namespace Restaurant.Api
             builder.Services.AddScoped<ISoftDeleteTableRepository, SoftDeleteTableRepository>();
             builder.Services.AddScoped<IActivateTableRepository, ActivateTableRepository>();
             builder.Services.AddScoped<IDeactivateTableRepository, DeactivateTableRepository>();
+            builder.Services.AddScoped<IRegenerateTableQrRepository, RegenerateTableQrRepository>();
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
             // ── Services ───────────────────────────────────────────────
@@ -147,6 +151,7 @@ namespace Restaurant.Api
             builder.Services.AddScoped<ISoftDeleteTableService, SoftDeleteTableService>();
             builder.Services.AddScoped<IActivateTableService, ActivateTableService>();
             builder.Services.AddScoped<IDeactivateTableService, DeactivateTableService>();
+            builder.Services.AddScoped<IRegenerateTableQrService, RegenerateTableQrService>();
             builder.Services.AddScoped<IImageUploaderService, ImageUploaderService>();
 
             // ── Controllers

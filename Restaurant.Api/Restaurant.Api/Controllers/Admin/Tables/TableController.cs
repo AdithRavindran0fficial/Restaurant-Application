@@ -8,6 +8,7 @@ using Restaurant.Application.Admin.Interfaces.Tables.UpdateTable;
 using Restaurant.Application.Admin.Interfaces.Tables.SoftDeleteTable;
 using Restaurant.Application.Admin.Interfaces.Tables.ActivateTable;
 using Restaurant.Application.Admin.Interfaces.Tables.DeactivateTable;
+using Restaurant.Application.Admin.Interfaces.Tables.RegenerateTableQr;
 using Restaurant.Application.Common;
 using System.Collections.Generic;
 
@@ -25,6 +26,7 @@ namespace Restaurant.Api.Controllers.Admin.Tables
         private readonly ISoftDeleteTableService _softDeleteTableService;
         private readonly IActivateTableService _activateTableService;
         private readonly IDeactivateTableService _deactivateTableService;
+        private readonly IRegenerateTableQrService _regenerateTableQrService;
 
         public TableController(
             IGetAllTablesService getAllTablesService,
@@ -152,6 +154,22 @@ namespace Restaurant.Api.Controllers.Admin.Tables
             }
 
             var result = await _deactivateTableService.DeactivateTableAsync(tenantId, tableId);
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpPatch("{tableId}/qr/regenerate")]
+        public async Task<ActionResult<ApiResponse<DiningTableDto>>> RegenerateTableQr(int tableId)
+        {
+            var tenantIdClaim = User.FindFirst("tenantId")?.Value;
+
+            if (string.IsNullOrWhiteSpace(tenantIdClaim) || !int.TryParse(tenantIdClaim, out int tenantId))
+            {
+                return Unauthorized(ApiResponse<DiningTableDto>.UnauthorizedResponse(
+                    "Tenant information missing from token"));
+            }
+
+            var result = await _regenerateTableQrService.RegenerateTableQrAsync(tenantId, tableId);
 
             return StatusCode(result.StatusCode, result);
         }
