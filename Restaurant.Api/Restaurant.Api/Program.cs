@@ -86,6 +86,7 @@ using Restaurnat.Infra.Admin.Tables.RegenerateTableQr;
 using Restaurnat.Infra.Admin.Categories.GetAllCategories;
 using Restaurnat.Infra.Admin.Categories.GetCategoryById;
 using Restaurnat.Infra.Admin.Categories.CreateCategory;
+using Restaurnat.Infra.Admin.Categories.UpdateCategory;
 using Scalar.AspNetCore;
 using System.Text;
 using Restaurant.Application.Common.ImageServices;
@@ -134,6 +135,7 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IGetAllCategoriesRepository, GetAllCategoriesRepository>();
             builder.Services.AddScoped<IGetCategoryByIdRepository, GetCategoryByIdRepository>();
             builder.Services.AddScoped<ICreateCategoryRepository, CreateCategoryRepository>();
+            builder.Services.AddScoped<IUpdateCategoryRepository, UpdateCategoryRepository>();
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
             // ── Services ───────────────────────────────────────────────
@@ -167,6 +169,7 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IGetAllCategoriesService, GetAllCategoriesService>();
             builder.Services.AddScoped<IGetCategoryByIdService, GetCategoryByIdService>();
             builder.Services.AddScoped<ICreateCategoryService, CreateCategoryService>();
+            builder.Services.AddScoped<IUpdateCategoryService, UpdateCategoryService>();
             builder.Services.AddScoped<IImageUploaderService, ImageUploaderService>();
 
             // ── Controllers

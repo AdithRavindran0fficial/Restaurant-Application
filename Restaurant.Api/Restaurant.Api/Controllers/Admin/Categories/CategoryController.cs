@@ -4,6 +4,8 @@ using Restaurant.Application.Admin.DTOs;
 using Restaurant.Application.Admin.Interfaces.Categories.GetAllCategories;
 using Restaurant.Application.Admin.Interfaces.Categories.GetCategoryById;
 using Restaurant.Application.Admin.Interfaces.Categories.CreateCategory;
+using Restaurant.Application.Admin.Interfaces.Categories.UpdateCategory;
+using Restaurant.Application.Admin.DTOs;
 using Restaurant.Application.Common;
 using System.Collections.Generic;
 
@@ -17,15 +19,18 @@ namespace Restaurant.Api.Controllers.Admin.Categories
         private readonly IGetAllCategoriesService _getAllCategoriesService;
         private readonly IGetCategoryByIdService _getCategoryByIdService;
         private readonly ICreateCategoryService _createCategoryService;
+        private readonly IUpdateCategoryService _updateCategoryService;
 
         public CategoryController(
             IGetAllCategoriesService getAllCategoriesService,
             IGetCategoryByIdService getCategoryByIdService,
-            ICreateCategoryService createCategoryService)
+            ICreateCategoryService createCategoryService,
+            IUpdateCategoryService updateCategoryService)
         {
             _getAllCategoriesService = getAllCategoriesService;
             _getCategoryByIdService = getCategoryByIdService;
             _createCategoryService = createCategoryService;
+            _updateCategoryService = updateCategoryService;
         }
 
         [HttpGet]
@@ -72,6 +77,22 @@ namespace Restaurant.Api.Controllers.Admin.Categories
             }
 
             var result = await _createCategoryService.CreateCategoryAsync(tenantId, dto);
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpPut("{categoryId}")]
+        public async Task<ActionResult<ApiResponse<CategoryDto>>> UpdateCategory(int categoryId, [FromBody] UpdateCategoryDto dto)
+        {
+            var tenantIdClaim = User.FindFirst("tenantId")?.Value;
+
+            if (string.IsNullOrWhiteSpace(tenantIdClaim) || !int.TryParse(tenantIdClaim, out int tenantId))
+            {
+                return Unauthorized(ApiResponse<CategoryDto>.UnauthorizedResponse(
+                    "Tenant information missing from token"));
+            }
+
+            var result = await _updateCategoryService.UpdateCategoryAsync(tenantId, categoryId, dto);
 
             return StatusCode(result.StatusCode, result);
         }
