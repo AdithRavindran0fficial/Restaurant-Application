@@ -5,6 +5,9 @@ using Restaurant.Application.Admin.Interfaces.Categories.GetAllCategories;
 using Restaurant.Application.Admin.Interfaces.Categories.GetCategoryById;
 using Restaurant.Application.Admin.Interfaces.Categories.CreateCategory;
 using Restaurant.Application.Admin.Interfaces.Categories.UpdateCategory;
+using Restaurant.Application.Admin.Interfaces.Categories.DeleteCategory;
+using Restaurant.Application.Admin.Interfaces.Categories.ActivateCategory;
+using Restaurant.Application.Admin.Interfaces.Categories.DeactivateCategory;
 using Restaurant.Application.Admin.DTOs;
 using Restaurant.Application.Common;
 using System.Collections.Generic;
@@ -20,17 +23,26 @@ namespace Restaurant.Api.Controllers.Admin.Categories
         private readonly IGetCategoryByIdService _getCategoryByIdService;
         private readonly ICreateCategoryService _createCategoryService;
         private readonly IUpdateCategoryService _updateCategoryService;
+        private readonly IDeleteCategoryService _deleteCategoryService;
+        private readonly IActivateCategoryService _activateCategoryService;
+        private readonly IDeactivateCategoryService _deactivateCategoryService;
 
         public CategoryController(
             IGetAllCategoriesService getAllCategoriesService,
             IGetCategoryByIdService getCategoryByIdService,
             ICreateCategoryService createCategoryService,
-            IUpdateCategoryService updateCategoryService)
+            IUpdateCategoryService updateCategoryService,
+            IDeleteCategoryService deleteCategoryService,
+            IActivateCategoryService activateCategoryService,
+            IDeactivateCategoryService deactivateCategoryService)
         {
             _getAllCategoriesService = getAllCategoriesService;
             _getCategoryByIdService = getCategoryByIdService;
             _createCategoryService = createCategoryService;
             _updateCategoryService = updateCategoryService;
+            _deleteCategoryService = deleteCategoryService;
+            _activateCategoryService = activateCategoryService;
+            _deactivateCategoryService = deactivateCategoryService;
         }
 
         [HttpGet]
@@ -93,6 +105,54 @@ namespace Restaurant.Api.Controllers.Admin.Categories
             }
 
             var result = await _updateCategoryService.UpdateCategoryAsync(tenantId, categoryId, dto);
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpDelete("{categoryId}")]
+        public async Task<ActionResult<ApiResponse<bool>>> DeleteCategory(int categoryId)
+        {
+            var tenantIdClaim = User.FindFirst("tenantId")?.Value;
+
+            if (string.IsNullOrWhiteSpace(tenantIdClaim) || !int.TryParse(tenantIdClaim, out int tenantId))
+            {
+                return Unauthorized(ApiResponse<bool>.UnauthorizedResponse(
+                    "Tenant information missing from token"));
+            }
+
+            var result = await _deleteCategoryService.DeleteCategoryAsync(tenantId, categoryId);
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpPatch("{categoryId}/activate")]
+        public async Task<ActionResult<ApiResponse<bool>>> ActivateCategory(int categoryId)
+        {
+            var tenantIdClaim = User.FindFirst("tenantId")?.Value;
+
+            if (string.IsNullOrWhiteSpace(tenantIdClaim) || !int.TryParse(tenantIdClaim, out int tenantId))
+            {
+                return Unauthorized(ApiResponse<bool>.UnauthorizedResponse(
+                    "Tenant information missing from token"));
+            }
+
+            var result = await _activateCategoryService.ActivateCategoryAsync(tenantId, categoryId);
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpPatch("{categoryId}/deactivate")]
+        public async Task<ActionResult<ApiResponse<bool>>> DeactivateCategory(int categoryId)
+        {
+            var tenantIdClaim = User.FindFirst("tenantId")?.Value;
+
+            if (string.IsNullOrWhiteSpace(tenantIdClaim) || !int.TryParse(tenantIdClaim, out int tenantId))
+            {
+                return Unauthorized(ApiResponse<bool>.UnauthorizedResponse(
+                    "Tenant information missing from token"));
+            }
+
+            var result = await _deactivateCategoryService.DeactivateCategoryAsync(tenantId, categoryId);
 
             return StatusCode(result.StatusCode, result);
         }

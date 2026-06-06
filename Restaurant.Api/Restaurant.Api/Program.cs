@@ -67,6 +67,14 @@ using Restaurant.Application.Admin.Interfaces.Categories.CreateCategory;
 using Restaurant.Application.Admin.Services.Categories.CreateCategory;
 using Restaurant.Application.Admin.Interfaces.Categories.GetCategoryById;
 using Restaurant.Application.Admin.Services.Categories.GetCategoryById;
+using Restaurant.Application.Admin.Interfaces.Categories.UpdateCategory;
+using Restaurant.Application.Admin.Services.Categories.UpdateCategory;
+using Restaurant.Application.Admin.Interfaces.Categories.DeleteCategory;
+using Restaurant.Application.Admin.Services.Categories.DeleteCategory;
+using Restaurant.Application.Admin.Interfaces.Categories.ActivateCategory;
+using Restaurant.Application.Admin.Services.Categories.ActivateCategory;
+using Restaurant.Application.Admin.Interfaces.Categories.DeactivateCategory;
+using Restaurant.Application.Admin.Services.Categories.DeactivateCategory;
 using Restaurant.Application.Admin.Interfaces.Tables.SoftDeleteTable;
 using Restaurant.Application.Admin.Services.Tables.SoftDeleteTable;
 using Restaurant.Application.Admin.Interfaces.Tables.ActivateTable;
@@ -87,6 +95,9 @@ using Restaurnat.Infra.Admin.Categories.GetAllCategories;
 using Restaurnat.Infra.Admin.Categories.GetCategoryById;
 using Restaurnat.Infra.Admin.Categories.CreateCategory;
 using Restaurnat.Infra.Admin.Categories.UpdateCategory;
+using Restaurnat.Infra.Admin.Categories.DeleteCategory;
+using Restaurnat.Infra.Admin.Categories.ActivateCategory;
+using Restaurnat.Infra.Admin.Categories.DeactivateCategory;
 using Scalar.AspNetCore;
 using System.Text;
 using Restaurant.Application.Common.ImageServices;
@@ -136,6 +147,9 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IGetCategoryByIdRepository, GetCategoryByIdRepository>();
             builder.Services.AddScoped<ICreateCategoryRepository, CreateCategoryRepository>();
             builder.Services.AddScoped<IUpdateCategoryRepository, UpdateCategoryRepository>();
+            builder.Services.AddScoped<IDeleteCategoryRepository, DeleteCategoryRepository>();
+            builder.Services.AddScoped<IActivateCategoryRepository, ActivateCategoryRepository>();
+            builder.Services.AddScoped<IDeactivateCategoryRepository, DeactivateCategoryRepository>();
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
             // ── Services ───────────────────────────────────────────────
@@ -170,6 +184,9 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IGetCategoryByIdService, GetCategoryByIdService>();
             builder.Services.AddScoped<ICreateCategoryService, CreateCategoryService>();
             builder.Services.AddScoped<IUpdateCategoryService, UpdateCategoryService>();
+            builder.Services.AddScoped<IDeleteCategoryService, DeleteCategoryService>();
+            builder.Services.AddScoped<IActivateCategoryService, ActivateCategoryService>();
+            builder.Services.AddScoped<IDeactivateCategoryService, DeactivateCategoryService>();
             builder.Services.AddScoped<IImageUploaderService, ImageUploaderService>();
 
             // ── Controllers
