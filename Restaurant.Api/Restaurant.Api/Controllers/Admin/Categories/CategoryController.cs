@@ -8,7 +8,6 @@ using Restaurant.Application.Admin.Interfaces.Categories.UpdateCategory;
 using Restaurant.Application.Admin.Interfaces.Categories.DeleteCategory;
 using Restaurant.Application.Admin.Interfaces.Categories.ActivateCategory;
 using Restaurant.Application.Admin.Interfaces.Categories.DeactivateCategory;
-using Restaurant.Application.Admin.DTOs;
 using Restaurant.Application.Common;
 using System.Collections.Generic;
 

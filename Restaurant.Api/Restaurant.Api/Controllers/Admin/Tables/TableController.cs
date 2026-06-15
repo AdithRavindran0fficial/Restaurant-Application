@@ -35,7 +35,8 @@ namespace Restaurant.Api.Controllers.Admin.Tables
             IUpdateTableService updateTableService,
             ISoftDeleteTableService softDeleteTableService,
             IActivateTableService activateTableService,
-            IDeactivateTableService deactivateTableService)
+            IDeactivateTableService deactivateTableService,
+            IRegenerateTableQrService regenerateTableQrService)
         {
             _getAllTablesService = getAllTablesService;
             _getTableByIdService = getTableByIdService;
@@ -44,6 +45,7 @@ namespace Restaurant.Api.Controllers.Admin.Tables
             _softDeleteTableService = softDeleteTableService;
             _activateTableService = activateTableService;
             _deactivateTableService = deactivateTableService;
+            _regenerateTableQrService = regenerateTableQrService;
         }
 
         [HttpGet]
