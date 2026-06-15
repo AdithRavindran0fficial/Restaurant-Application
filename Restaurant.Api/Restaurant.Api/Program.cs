@@ -87,6 +87,10 @@ using Restaurant.Application.Admin.Interfaces.MenuItems.UpdateMenuItem;
 using Restaurant.Application.Admin.Services.MenuItems.UpdateMenuItem;
 using Restaurant.Application.Admin.Interfaces.MenuItems.DeleteMenuItem;
 using Restaurant.Application.Admin.Services.MenuItems.DeleteMenuItem;
+using Restaurant.Application.Admin.Interfaces.MenuItems.ActivateMenuItem;
+using Restaurant.Application.Admin.Services.MenuItems.ActivateMenuItem;
+using Restaurant.Application.Admin.Interfaces.MenuItems.DeactivateMenuItem;
+using Restaurant.Application.Admin.Services.MenuItems.DeactivateMenuItem;
 using Restaurant.Application.Admin.Interfaces.Tables.SoftDeleteTable;
 using Restaurant.Application.Admin.Services.Tables.SoftDeleteTable;
 using Restaurant.Application.Admin.Interfaces.Tables.ActivateTable;
@@ -115,6 +119,8 @@ using Restaurnat.Infra.Admin.MenuItems.GetMenuItemById;
 using Restaurnat.Infra.Admin.MenuItems.GetMenuItemsByCategoryId;
 using Restaurnat.Infra.Admin.MenuItems.UpdateMenuItem;
 using Restaurnat.Infra.Admin.MenuItems.DeleteMenuItem;
+using Restaurnat.Infra.Admin.MenuItems.ActivateMenuItem;
+using Restaurnat.Infra.Admin.MenuItems.DeactivateMenuItem;
 using Restaurnat.Infra.Admin.MenuItems.CreateMenuItem;
 using Scalar.AspNetCore;
 using System.Text;
@@ -174,6 +180,8 @@ namespace Restaurant.Api
             builder.Services.AddScoped<ICreateMenuItemRepository, CreateMenuItemRepository>();
             builder.Services.AddScoped<IUpdateMenuItemRepository, UpdateMenuItemRepository>();
             builder.Services.AddScoped<IDeleteMenuItemRepository, DeleteMenuItemRepository>();
+            builder.Services.AddScoped<IActivateMenuItemRepository, ActivateMenuItemRepository>();
+            builder.Services.AddScoped<IDeactivateMenuItemRepository, DeactivateMenuItemRepository>();
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
             // ── Services ───────────────────────────────────────────────
@@ -217,6 +225,8 @@ namespace Restaurant.Api
             builder.Services.AddScoped<ICreateMenuItemService, CreateMenuItemService>();
             builder.Services.AddScoped<IUpdateMenuItemService, UpdateMenuItemService>();
             builder.Services.AddScoped<IDeleteMenuItemService, DeleteMenuItemService>();
+            builder.Services.AddScoped<IActivateMenuItemService, ActivateMenuItemService>();
+            builder.Services.AddScoped<IDeactivateMenuItemService, DeactivateMenuItemService>();
             builder.Services.AddScoped<IImageUploaderService, ImageUploaderService>();
 
             // ── Controllers

@@ -7,6 +7,8 @@ using Restaurant.Application.Admin.Interfaces.MenuItems.GetMenuItemsByCategoryId
 using Restaurant.Application.Admin.Interfaces.MenuItems.CreateMenuItem;
 using Restaurant.Application.Admin.Interfaces.MenuItems.UpdateMenuItem;
 using Restaurant.Application.Admin.Interfaces.MenuItems.DeleteMenuItem;
+using Restaurant.Application.Admin.Interfaces.MenuItems.ActivateMenuItem;
+using Restaurant.Application.Admin.Interfaces.MenuItems.DeactivateMenuItem;
 using Restaurant.Application.Common;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -24,6 +26,8 @@ namespace Restaurant.Api.Controllers.Admin.MenuItems
         private readonly ICreateMenuItemService _createMenuItemService;
         private readonly IUpdateMenuItemService _updateMenuItemService;
         private readonly IDeleteMenuItemService _deleteMenuItemService;
+        private readonly IActivateMenuItemService _activateMenuItemService;
+        private readonly IDeactivateMenuItemService _deactivateMenuItemService;
 
         public MenuItemController(
             IGetAllMenuItemsService getAllMenuItemsService,
@@ -31,7 +35,9 @@ namespace Restaurant.Api.Controllers.Admin.MenuItems
             IGetMenuItemsByCategoryIdService getMenuItemsByCategoryIdService,
             ICreateMenuItemService createMenuItemService,
             IUpdateMenuItemService updateMenuItemService,
-            IDeleteMenuItemService deleteMenuItemService)
+            IDeleteMenuItemService deleteMenuItemService,
+            IActivateMenuItemService activateMenuItemService,
+            IDeactivateMenuItemService deactivateMenuItemService)
         {
             _getAllMenuItemsService = getAllMenuItemsService;
             _getMenuItemByIdService = getMenuItemByIdService;
@@ -39,6 +45,8 @@ namespace Restaurant.Api.Controllers.Admin.MenuItems
             _createMenuItemService = createMenuItemService;
             _updateMenuItemService = updateMenuItemService;
             _deleteMenuItemService = deleteMenuItemService;
+            _activateMenuItemService = activateMenuItemService;
+            _deactivateMenuItemService = deactivateMenuItemService;
         }
 
         [HttpGet]
@@ -133,6 +141,38 @@ namespace Restaurant.Api.Controllers.Admin.MenuItems
             }
 
             var result = await _deleteMenuItemService.DeleteMenuItemAsync(tenantId, menuItemId);
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpPatch("{menuItemId}/activate")]
+        public async Task<ActionResult<ApiResponse<bool>>> ActivateMenuItem(int menuItemId)
+        {
+            var tenantIdClaim = User.FindFirst("tenantId")?.Value;
+
+            if (string.IsNullOrWhiteSpace(tenantIdClaim) || !int.TryParse(tenantIdClaim, out int tenantId))
+            {
+                return Unauthorized(ApiResponse<bool>.UnauthorizedResponse(
+                    "Tenant information missing from token"));
+            }
+
+            var result = await _activateMenuItemService.ActivateMenuItemAsync(tenantId, menuItemId);
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpPatch("{menuItemId}/deactivate")]
+        public async Task<ActionResult<ApiResponse<bool>>> DeactivateMenuItem(int menuItemId)
+        {
+            var tenantIdClaim = User.FindFirst("tenantId")?.Value;
+
+            if (string.IsNullOrWhiteSpace(tenantIdClaim) || !int.TryParse(tenantIdClaim, out int tenantId))
+            {
+                return Unauthorized(ApiResponse<bool>.UnauthorizedResponse(
+                    "Tenant information missing from token"));
+            }
+
+            var result = await _deactivateMenuItemService.DeactivateMenuItemAsync(tenantId, menuItemId);
 
             return StatusCode(result.StatusCode, result);
         }
