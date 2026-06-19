@@ -15,7 +15,6 @@ namespace Restaurant.Domain.Entities
         public string QrToken { get; set; } = string.Empty;
         public string? QrUrl { get; set; }
         public string? QrCodeImageUrl { get; set; }
-        public bool IsOccupied { get; set; } = false;
 
         public int? Capacity { get; set; }
 
@@ -27,8 +26,12 @@ namespace Restaurant.Domain.Entities
 
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
+        public string SessionToken { get; set; } = string.Empty;
+
         // 🔗 Navigation
         public Tenant Tenant { get; set; }
+
+        public ICollection<TableSession> Sessions { get; set; } 
 
         public ICollection<Order> Orders { get; set; } = new List<Order>();
     }
