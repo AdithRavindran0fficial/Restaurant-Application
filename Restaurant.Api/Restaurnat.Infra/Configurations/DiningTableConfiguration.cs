@@ -30,8 +30,6 @@ namespace Restaurant.Infra.Configurations
 
             builder.Property(dt => dt.Capacity);
 
-            builder.Property(dt => dt.IsOccupied)
-                .HasDefaultValue(false);
 
             builder.Property(dt => dt.IsActive)
                 .HasDefaultValue(true);

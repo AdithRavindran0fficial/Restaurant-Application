@@ -29,7 +29,11 @@ namespace Restaurnat.Infra.Context
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<SubscriptionPlan> SubscriptionPlans { get; set; }
         public DbSet<TenantSubscription> TenantSubscriptions { get; set; }
-        public DbSet<Restaurant.Domain.Entities.SuperAdmin> SuperAdmins { get; set; }  
+        public DbSet<Restaurant.Domain.Entities.SuperAdmin> SuperAdmins { get; set; } 
+        public DbSet<OrderStatusHistory> OrderStatusHistories { get; set; } 
+        public DbSet<OtpVerification> OtpVerifications { get; set; }    
+        public DbSet<TableSession> TableSessions { get; set; }  
+        public DbSet<Customer> Customers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
