@@ -84,7 +84,6 @@ namespace Restaurant.Application.Admin.Services.Tables.UpdateTable
                 QrToken = existing.QrToken,
                 QrUrl = existing.QrUrl,
                 QrCodeImageUrl = existing.QrCodeImageUrl,
-                IsOccupied = existing.IsOccupied,
                 Capacity = existing.Capacity,
                 IsActive = existing.IsActive,
                 CreatedAt = existing.CreatedAt,

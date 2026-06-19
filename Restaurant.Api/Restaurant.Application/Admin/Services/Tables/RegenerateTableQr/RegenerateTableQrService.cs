@@ -101,7 +101,6 @@ namespace Restaurant.Application.Admin.Services.Tables.RegenerateTableQr
                     QrToken = table.QrToken,
                     QrUrl = table.QrUrl,
                     QrCodeImageUrl = table.QrCodeImageUrl,
-                    IsOccupied = table.IsOccupied,
                     Capacity = table.Capacity,
                     IsActive = table.IsActive,
                     CreatedAt = table.CreatedAt,

@@ -1,47 +1,47 @@
-using Restaurant.Application.Admin.DTOs;
-using Restaurant.Application.Admin.Interfaces.Categories.GetAllCategories;
-using Restaurant.Application.Common;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+    using Restaurant.Application.Admin.DTOs;
+    using Restaurant.Application.Admin.Interfaces.Categories.GetAllCategories;
+    using Restaurant.Application.Common;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
 
-namespace Restaurant.Application.Admin.Services.Categories.GetAllCategories
-{
-    public class GetAllCategoriesService : IGetAllCategoriesService
+    namespace Restaurant.Application.Admin.Services.Categories.GetAllCategories
     {
-        private readonly IGetAllCategoriesRepository _repository;
-
-        public GetAllCategoriesService(IGetAllCategoriesRepository repository)
+        public class GetAllCategoriesService : IGetAllCategoriesService
         {
-            _repository = repository;
-        }
+            private readonly IGetAllCategoriesRepository _repository;
 
-        public async Task<ApiResponse<List<CategoryDto>>> GetAllCategoriesAsync(int tenantId)
-        {
-            if (tenantId <= 0)
+            public GetAllCategoriesService(IGetAllCategoriesRepository repository)
             {
-                return ApiResponse<List<CategoryDto>>.ValidationErrorResponse(
-                    "Invalid tenant ID",
-                    new List<string> { "Tenant ID must be greater than 0" });
+                _repository = repository;
             }
 
-            var categories = await _repository.GetAllCategoriesAsync(tenantId);
-
-            var dtos = categories.Select(c => new CategoryDto
+            public async Task<ApiResponse<List<CategoryDto>>> GetAllCategoriesAsync(int tenantId)
             {
-                Id = c.Id,
-                TenantId = c.TenantId,
-                Name = c.Name,
-                Description = c.Description,
-                ImageUrl = c.ImageUrl,
-                DisplayOrder = c.DisplayOrder,
-                Slug = c.Slug,
-                IsActive = c.IsActive,
-                CreatedAt = c.CreatedAt,
-                UpdatedAt = c.UpdatedAt
-            }).ToList();
+                if (tenantId <= 0)
+                {
+                    return ApiResponse<List<CategoryDto>>.ValidationErrorResponse(
+                        "Invalid tenant ID",
+                        new List<string> { "Tenant ID must be greater than 0" });
+                }
 
-            return ApiResponse<List<CategoryDto>>.SuccessResponse(dtos, $"{dtos.Count} category(s) retrieved successfully");
+                var categories = await _repository.GetAllCategoriesAsync(tenantId);
+
+                var dtos = categories.Select(c => new CategoryDto
+                {
+                    Id = c.Id,
+                    TenantId = c.TenantId,
+                    Name = c.Name,
+                    Description = c.Description,
+                    ImageUrl = c.ImageUrl,
+                    DisplayOrder = c.DisplayOrder,
+                    Slug = c.Slug,
+                    IsActive = c.IsActive,
+                    CreatedAt = c.CreatedAt,
+                    UpdatedAt = c.UpdatedAt
+                }).ToList();
+
+                return ApiResponse<List<CategoryDto>>.SuccessResponse(dtos, $"{dtos.Count} category(s) retrieved successfully");
+            }
         }
     }
-}

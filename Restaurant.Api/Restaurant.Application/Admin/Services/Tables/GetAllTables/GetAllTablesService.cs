@@ -35,7 +35,6 @@ namespace Restaurant.Application.Admin.Services.Tables.GetAllTables
                 QrToken = t.QrToken,
                 QrUrl = t.QrUrl,
                 QrCodeImageUrl = t.QrCodeImageUrl,
-                IsOccupied = t.IsOccupied,
                 Capacity = t.Capacity,
                 IsActive = t.IsActive,
                 CreatedAt = t.CreatedAt,
