@@ -237,6 +237,8 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IActivateCategoryService, ActivateCategoryService>();
             builder.Services.AddScoped<IDeactivateCategoryService, DeactivateCategoryService>();
             builder.Services.AddScoped<Restaurant.Application.User.Interfaces.Categories.GetAllCategories.IGetAllCategoriesService, Restaurant.Application.User.Services.Categories.GetAllCategories.GetAllCategoriesService>();
+            builder.Services.AddScoped<Restaurant.Application.User.Interfaces.MenuItems.GetMenuItemsByCategoryId.IGetMenuItemsByCategoryIdService, Restaurant.Application.User.Services.MenuItems.GetMenuItemsByCategoryId.GetMenuItemsByCategoryIdService>();
+            builder.Services.AddScoped<Restaurant.Application.User.Interfaces.MenuItems.GetMenuItemsByCategoryId.IGetMenuItemsByCategoryIdRepository, Restaurnat.Infra.User.MenuItems.GetMenuItemsByCategoryId.GetMenuItemsByCategoryIdRepository>();
             builder.Services.AddScoped<IGetAllMenuItemsService, GetAllMenuItemsService>();
             builder.Services.AddScoped<IGetMenuItemByIdService, GetMenuItemByIdService>();
             builder.Services.AddScoped<IGetMenuItemsByCategoryIdService, GetMenuItemsByCategoryIdService>();
