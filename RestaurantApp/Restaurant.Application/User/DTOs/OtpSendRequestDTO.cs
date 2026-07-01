@@ -6,7 +6,7 @@ namespace Restaurant.Application.User.DTOs
 {
     public class OtpSendRequestDTO
     {
-        public string PhoneNumber { get; set; } 
-        public string SessionToken { get; set; }
+        public string? PhoneNumber { get; set; } 
+        public string? SessionToken { get; set; }
     }
 }

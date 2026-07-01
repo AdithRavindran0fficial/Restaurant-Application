@@ -58,6 +58,7 @@ using Restaurant.Application.Admin.Services.Tables.UpdateTable;
 using Restaurant.Application.Authentication.Interfaces;
 using Restaurant.Application.Authentication.Services;
 using Restaurant.Application.Common.ImageServices;
+using Restaurant.Application.Common.Interface;
 using Restaurant.Application.SuperAdmin.Interfaces;
 using Restaurant.Application.SuperAdmin.Interfaces.ActivateTenant;
 using Restaurant.Application.SuperAdmin.Interfaces.DashBoard;
@@ -91,8 +92,10 @@ using Restaurant.Application.SuperAdmin.Services.TenantSubscriptionManagement.As
 using Restaurant.Application.SuperAdmin.Services.TenantSubscriptionManagement.CancelSubscription;
 using Restaurant.Application.SuperAdmin.Services.TenantSubscriptionManagement.GetTenantSubscription;
 using Restaurant.Application.User.Interfaces.Categories.GetAllCategories;
+using Restaurant.Application.User.Interfaces.OtpService.OtpSendService;
 using Restaurant.Application.User.Interfaces.Session.CreateSession;
 using Restaurant.Application.User.Services.Categories.GetAllCategories;
+using Restaurant.Application.User.Services.OtpService.OtpSendService;
 using Restaurant.Application.User.Services.Session;
 using Restaurnat.Infra.Admin.Categories.ActivateCategory;
 using Restaurnat.Infra.Admin.Categories.CreateCategory;
@@ -123,6 +126,7 @@ using Restaurnat.Infra.Admin.Tables.SoftDeleteTable;
 using Restaurnat.Infra.Admin.Tables.UpdateTable;
 using Restaurnat.Infra.Authentication;
 using Restaurnat.Infra.Context;
+using Restaurnat.Infra.ExternalService.TwilioService;
 using Restaurnat.Infra.SuperAdmin;
 using Restaurnat.Infra.SuperAdmin.ActivateTenant;
 using Restaurnat.Infra.SuperAdmin.DashBoard;
@@ -255,6 +259,8 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IDeactivateMenuItemService, DeactivateMenuItemService>();
             builder.Services.AddScoped<IImageUploaderService, ImageUploaderService>();
             builder.Services.AddScoped<ICreateSessionService, CreateSessionService>();
+            builder.Services.AddScoped<ITwillioOtpService, TwillioOtpService>();
+            builder.Services.AddScoped<IOtpSendService, OtpSendService>();
 
             // ── Controllers
             builder.Services.AddControllers();
