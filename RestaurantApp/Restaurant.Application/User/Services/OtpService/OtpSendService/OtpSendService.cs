@@ -56,9 +56,7 @@ namespace Restaurant.Application.User.Services.OtpService.OtpSendService
             await twillioOtpService.SendOtpAsync(requestDTO.PhoneNumber,CancellationToken.None);
 
             return ApiResponse.SuccessResponse("OTP send successfully", 200);
-            T
-
-
+            
         }
     }
 }

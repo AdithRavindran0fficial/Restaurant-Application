@@ -24,7 +24,7 @@ namespace Restaurnat.Infra.User.OtpSend.OtpSendRepo
 
         public async Task<TableSession?> GetTableSession(string sessionToken)
         {
-            var session = await context.TableSessions.FirstOrDefaultAsync(s => s.SessionToken == sessionToken);
+            var session = await context.TableSessions.FirstOrDefaultAsync(s => s.SessionToken == sessionToken && s.IsActive);
             return session;
         }
 
