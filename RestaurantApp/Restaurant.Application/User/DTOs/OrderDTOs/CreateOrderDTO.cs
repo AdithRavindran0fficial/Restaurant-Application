@@ -9,5 +9,9 @@ namespace Restaurant.Application.User.DTOs.OrderDTOs
         public string SessionToken { get; set; }
         public string ? Notes { get; set; }
         public List<CreateOrderItemDTO> Items { get; set; }
+        public string Phone { get; set;  }
+        public string Otp { get; set; }
+
+        public string Name { get; set; }
     }
 }

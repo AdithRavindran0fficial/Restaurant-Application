@@ -1,0 +1,5 @@
+[33mcommit 6e639437ea3a1afdc0aae2ab0de13eb8682a126b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Adith <adithravindranofficial@gmail.com>
+Date:   Wed Jul 1 16:44:13 2026 +0530
+
+    Implement Otp send Functionality

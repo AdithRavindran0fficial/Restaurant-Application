@@ -12,7 +12,7 @@ namespace Restaurant.Domain.Entities
         // ✅ Add these two
         public int? TableSessionId { get; set; }
         public int? CustomerId { get; set; }
-        public int? StaffId { get; set; }
+        public int? StaffId { get; set; } 
 
         public string OrderNumber { get; set; } = string.Empty;
 
@@ -23,7 +23,7 @@ namespace Restaurant.Domain.Entities
         public string PaymentStatus { get; set; } = "Unpaid";
         // Unpaid, Paid, Refunded
 
-        public string? PaymentMethod { get; set; }
+        public string? PaymentMethod { get; set; } = "UPI";
         // Cash, Card, UPI
 
         public string OrderSource { get; set; } = "QR";
