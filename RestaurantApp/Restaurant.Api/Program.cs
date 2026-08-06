@@ -92,9 +92,12 @@ using Restaurant.Application.SuperAdmin.Services.TenantSubscriptionManagement.As
 using Restaurant.Application.SuperAdmin.Services.TenantSubscriptionManagement.CancelSubscription;
 using Restaurant.Application.SuperAdmin.Services.TenantSubscriptionManagement.GetTenantSubscription;
 using Restaurant.Application.User.Interfaces.Categories.GetAllCategories;
+using Restaurant.Application.User.Interfaces.Order;
+using Restaurant.Application.User.Interfaces.Orders;
 using Restaurant.Application.User.Interfaces.OtpService.OtpSendService;
 using Restaurant.Application.User.Interfaces.Session.CreateSession;
 using Restaurant.Application.User.Services.Categories.GetAllCategories;
+using Restaurant.Application.User.Services.OrderService;
 using Restaurant.Application.User.Services.OtpService.OtpSendService;
 using Restaurant.Application.User.Services.Session;
 using Restaurnat.Infra.Admin.Categories.ActivateCategory;
@@ -144,6 +147,7 @@ using Restaurnat.Infra.SuperAdmin.TenantSubscriptionManagement.AssignSubscriptio
 using Restaurnat.Infra.SuperAdmin.TenantSubscriptionManagement.CancelSubscription;
 using Restaurnat.Infra.SuperAdmin.TenantSubscriptionManagement.GetTenantSubscription;
 using Restaurnat.Infra.User.Categories.GetAllCategories;
+using Restaurnat.Infra.User.OrderRepo;
 using Restaurnat.Infra.User.Session.CreateSession;
 using Scalar.AspNetCore;
 using System.Text;
@@ -208,6 +212,8 @@ namespace Restaurant.Api
             builder.Services.AddScoped<IDeactivateMenuItemRepository, DeactivateMenuItemRepository>();
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
             builder.Services.AddScoped<ICreateSessionRepository, CreateSessionRepository>();
+            builder.Services.AddScoped<ICreateOrderRepo, CreateOrderRepo>();
+            builder.Services.AddScoped<IActiveOrdersRepo, ActiveOrdersRepo>();
             
             // ── Services ───────────────────────────────────────────────
             builder.Services.AddScoped<IRegistrationService, RegistrationService>();
@@ -261,7 +267,8 @@ namespace Restaurant.Api
             builder.Services.AddScoped<ICreateSessionService, CreateSessionService>();
             builder.Services.AddScoped<ITwillioOtpService, TwillioOtpService>();
             builder.Services.AddScoped<IOtpSendService, OtpSendService>();
-
+            builder.Services.AddScoped<ICreateOrderService, CreateOrderService>();
+            builder.Services.AddScoped<IActiveOrdersService, ActiveOrdersService>();
             // ── Controllers
             builder.Services.AddControllers();
 
